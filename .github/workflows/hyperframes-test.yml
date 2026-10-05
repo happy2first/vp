@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: hyperframes-test
+  cancel-in-progress: true
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -22,7 +26,7 @@ jobs:
       - name: Install FFmpeg and inspect runtime
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
           node -v
           ffmpeg -version | head -n 1
           which google-chrome || which google-chrome-stable || which chromium || true
