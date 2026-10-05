@@ -19,8 +19,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Inspect runtime
+      - name: Install FFmpeg and inspect runtime
         run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
           node -v
           ffmpeg -version | head -n 1
           which google-chrome || which google-chrome-stable || which chromium || true
