@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280,height=720" />
+<title>植物细胞壁 · HyperFrames Test</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#06130f; font-family: Inter, "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  #root { position:relative; overflow:hidden; color:#eefcf4; background:
+      radial-gradient(circle at 20% 20%, rgba(55,180,120,.20), transparent 34%),
+      radial-gradient(circle at 80% 72%, rgba(115,221,149,.12), transparent 30%),
+      linear-gradient(145deg,#06130f 0%,#0b2118 55%,#081610 100%); }
+  .grid { position:absolute; inset:0; opacity:.12; background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px); background-size:40px 40px; }
+  .kicker { position:absolute; left:72px; top:54px; font-size:22px; letter-spacing:.16em; text-transform:uppercase; color:#8de5b1; font-weight:700; }
+  .title { position:absolute; left:72px; top:120px; font-size:66px; line-height:1.08; letter-spacing:-.03em; font-weight:800; width:620px; }
+  .subtitle { position:absolute; left:76px; top:282px; font-size:28px; color:#b9d7c8; width:590px; line-height:1.5; }
+  .cell { position:absolute; right:108px; top:118px; width:390px; height:390px; border-radius:42% 46% 44% 48%; border:20px solid #91d88b; background:rgba(61,144,98,.14); box-shadow:0 0 0 11px rgba(199,238,179,.15), 0 32px 80px rgba(0,0,0,.34); }
+  .membrane { position:absolute; inset:22px; border-radius:42% 46% 44% 48%; border:7px solid #56bfa8; background:rgba(55,130,118,.10); }
+  .vacuole { position:absolute; left:86px; top:72px; width:184px; height:205px; border-radius:48% 55% 50% 48%; background:rgba(69,161,175,.24); border:3px solid rgba(117,220,225,.5); }
+  .nucleus { position:absolute; right:58px; bottom:74px; width:82px; height:82px; border-radius:50%; background:#b59bf4; box-shadow:0 0 26px rgba(181,155,244,.45); }
+  .wallLabel { position:absolute; right:110px; top:536px; font-size:22px; font-weight:700; color:#c9f6bd; }
+
+  .scene2 { position:absolute; inset:0; opacity:0; }
+  .zoom-title { position:absolute; left:72px; top:54px; font-size:28px; font-weight:800; color:#d7f7df; }
+  .layer-stack { position:absolute; left:118px; top:190px; width:1040px; height:340px; }
+  .layer { position:absolute; left:0; width:100%; height:86px; border-radius:22px; display:flex; align-items:center; padding:0 34px; font-size:30px; font-weight:800; box-shadow:0 16px 38px rgba(0,0,0,.22); transform-origin:left center; }
+  .l1 { top:0; background:linear-gradient(90deg,#5cc77e,#9ad77d); color:#092513; }
+  .l2 { top:112px; background:linear-gradient(90deg,#e8c36a,#f0df9d); color:#2e2810; }
+  .l3 { top:224px; background:linear-gradient(90deg,#73bcd2,#8fded9); color:#08242b; }
+  .tag { margin-left:auto; font-size:20px; font-weight:700; opacity:.75; }
+  .arrow { position:absolute; left:70px; top:594px; font-size:21px; color:#9ec9b4; }
+
+  .scene3 { position:absolute; inset:0; opacity:0; }
+  .micro-title { position:absolute; left:72px; top:54px; font-size:28px; font-weight:800; color:#d7f7df; }
+  .fibers { position:absolute; left:110px; top:175px; width:1060px; height:350px; overflow:hidden; border-radius:34px; border:1px solid rgba(255,255,255,.13); background:rgba(255,255,255,.035); }
+  .fiber { position:absolute; height:18px; border-radius:99px; background:linear-gradient(90deg,#b8f09f,#4bc77f); box-shadow:0 0 20px rgba(98,222,133,.25); }
+  .pectin { position:absolute; width:32px; height:32px; border-radius:50%; background:#efc767; box-shadow:0 0 18px rgba(239,199,103,.38); }
+  .hemi { position:absolute; height:8px; border-radius:99px; background:#70d6da; transform-origin:left center; }
+  .legend { position:absolute; left:114px; bottom:72px; display:flex; gap:38px; font-size:22px; color:#c7e6d4; }
+  .dot { display:inline-block; width:14px; height:14px; border-radius:50%; margin-right:10px; }
+  .conclusion { position:absolute; right:82px; bottom:58px; font-size:24px; font-weight:800; color:#f4fff8; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1280" data-height="720">
+  <div class="grid"></div>
+
+  <section class="scene1">
+    <div class="kicker">HYPERFRAMES TEST</div>
+    <div class="title">植物细胞壁<br/>像一层“外骨骼”</div>
+    <div class="subtitle">它包在细胞膜外面，给植物细胞提供支撑、保护与固定形状。</div>
+    <div class="cell">
+      <div class="membrane"><div class="vacuole"></div><div class="nucleus"></div></div>
+    </div>
+    <div class="wallLabel">绿色厚层 = 细胞壁</div>
+  </section>
+
+  <section class="scene2">
+    <div class="zoom-title">把细胞壁放大：三类主要成分</div>
+    <div class="layer-stack">
+      <div class="layer l1">纤维素 <span class="tag">像钢筋 · 提供强度</span></div>
+      <div class="layer l2">半纤维素 <span class="tag">把纤维素连接起来</span></div>
+      <div class="layer l3">果胶 <span class="tag">像胶水 · 填充与黏合</span></div>
+    </div>
+    <div class="arrow">结构不是“砖墙”，更像由纤维与胶状物交织成的复合材料。</div>
+  </section>
+
+  <section class="scene3">
+    <div class="micro-title">再放大：纤维素微纤丝形成支撑网络</div>
+    <div class="fibers">
+      <div class="fiber" style="left:60px;top:72px;width:790px;transform:rotate(4deg)"></div>
+      <div class="fiber" style="left:150px;top:148px;width:770px;transform:rotate(-7deg)"></div>
+      <div class="fiber" style="left:84px;top:245px;width:820px;transform:rotate(6deg)"></div>
+      <div class="hemi" style="left:360px;top:84px;width:190px;transform:rotate(28deg)"></div>
+      <div class="hemi" style="left:590px;top:175px;width:220px;transform:rotate(-30deg)"></div>
+      <div class="hemi" style="left:280px;top:250px;width:220px;transform:rotate(-26deg)"></div>
+      <div class="pectin" style="left:250px;top:102px"></div>
+      <div class="pectin" style="left:540px;top:225px"></div>
+      <div class="pectin" style="left:820px;top:122px"></div>
+    </div>
+    <div class="legend"><span><i class="dot" style="background:#78d991"></i>纤维素</span><span><i class="dot" style="background:#70d6da"></i>半纤维素</span><span><i class="dot" style="background:#efc767"></i>果胶</span></div>
+    <div class="conclusion">支撑 · 保护 · 维持形状</div>
+  </section>
+</div>
+<script>
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+
+  tl.from('.kicker', { y: 20, opacity: 0, duration: .55, ease: 'power3.out' }, .15)
+    .from('.title', { y: 42, opacity: 0, duration: .75, ease: 'power3.out' }, .3)
+    .from('.subtitle', { y: 24, opacity: 0, duration: .65, ease: 'power2.out' }, .72)
+    .from('.cell', { scale: .72, rotation: -6, opacity: 0, duration: .9, ease: 'back.out(1.5)' }, .42)
+    .from('.wallLabel', { x: 25, opacity: 0, duration: .55, ease: 'power2.out' }, 1.2)
+    .to('.cell', { scale: 1.04, duration: 1.2, ease: 'sine.inOut' }, 2.0)
+    .to('.cell', { scale: 1, duration: .55, ease: 'sine.inOut' }, 3.05)
+
+    .to('.scene1', { opacity: 0, duration: .45, ease: 'power2.in' }, 3.55)
+    .set('.scene2', { opacity: 1 }, 3.85)
+    .from('.zoom-title', { x: -30, opacity: 0, duration: .55, ease: 'power3.out' }, 3.95)
+    .from('.l1', { x: -160, opacity: 0, duration: .65, ease: 'power3.out' }, 4.15)
+    .from('.l2', { x: 160, opacity: 0, duration: .65, ease: 'power3.out' }, 4.55)
+    .from('.l3', { x: -160, opacity: 0, duration: .65, ease: 'power3.out' }, 4.95)
+    .from('.arrow', { y: 20, opacity: 0, duration: .5 }, 5.45)
+    .to('.layer', { scaleX: 1.025, duration: .65, stagger: .10, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 6.2)
+
+    .to('.scene2', { opacity: 0, duration: .45 }, 7.35)
+    .set('.scene3', { opacity: 1 }, 7.7)
+    .from('.micro-title', { y: -22, opacity: 0, duration: .55, ease: 'power3.out' }, 7.82)
+    .from('.fiber', { scaleX: 0, opacity: 0, duration: .85, stagger: .18, ease: 'power3.out' }, 8.0)
+    .from('.hemi', { scaleX: 0, opacity: 0, duration: .5, stagger: .12, ease: 'power2.out' }, 8.65)
+    .from('.pectin', { scale: 0, opacity: 0, duration: .45, stagger: .12, ease: 'back.out(2)' }, 9.0)
+    .from('.legend', { y: 18, opacity: 0, duration: .45 }, 9.5)
+    .from('.conclusion', { x: 26, opacity: 0, duration: .55, ease: 'power2.out' }, 9.75)
+    .to('.fibers', { scale: 1.025, duration: 1.0, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 10.0);
+
+  window.__timelines.main = tl;
+</script>
+</body>
+</html>
