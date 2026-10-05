@@ -19,10 +19,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install system dependencies
+      - name: Inspect runtime
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg chromium-browser || sudo apt-get install -y ffmpeg chromium
+          node -v
+          ffmpeg -version | head -n 1
+          which google-chrome || which google-chrome-stable || which chromium || true
       - name: HyperFrames diagnostics
         working-directory: hyperframes-test
         env:
