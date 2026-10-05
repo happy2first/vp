@@ -1,0 +1,54 @@
+name: HyperFrames test render
+
+on:
+  push:
+    branches: [hyperframes-test-20261005]
+    paths:
+      - 'hyperframes-test/**'
+      - '.github/workflows/hyperframes-test.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg chromium-browser || sudo apt-get install -y ffmpeg chromium
+      - name: HyperFrames diagnostics
+        working-directory: hyperframes-test
+        env:
+          HYPERFRAMES_NO_UPDATE_CHECK: '1'
+        run: |
+          npx --yes hyperframes@latest --version
+          npx --yes hyperframes@latest doctor
+      - name: Lint and check composition
+        working-directory: hyperframes-test
+        env:
+          HYPERFRAMES_NO_UPDATE_CHECK: '1'
+        run: |
+          npx --yes hyperframes@latest lint
+          npx --yes hyperframes@latest check
+      - name: Render MP4
+        working-directory: hyperframes-test
+        env:
+          HYPERFRAMES_NO_UPDATE_CHECK: '1'
+        run: |
+          npx --yes hyperframes@latest render --workers 1 --quality draft --output hyperframes-cell-wall-test.mp4
+          test -s hyperframes-cell-wall-test.mp4
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height,r_frame_rate -of json hyperframes-cell-wall-test.mp4
+      - name: Upload video
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyperframes-cell-wall-test
+          path: hyperframes-test/hyperframes-cell-wall-test.mp4
+          if-no-files-found: error
+          retention-days: 3
