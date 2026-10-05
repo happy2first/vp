@@ -7,7 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 <style>
   * { box-sizing: border-box; }
-  html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#06130f; font-family: Inter, "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#06130f; font-family: Arial, sans-serif; }
   #root { position:relative; overflow:hidden; color:#eefcf4; background:
       radial-gradient(circle at 20% 20%, rgba(55,180,120,.20), transparent 34%),
       radial-gradient(circle at 80% 72%, rgba(115,221,149,.12), transparent 30%),
@@ -94,7 +94,7 @@
     .from('.cell', { scale: .72, rotation: -6, opacity: 0, duration: .9, ease: 'back.out(1.5)' }, .42)
     .from('.wallLabel', { x: 25, opacity: 0, duration: .55, ease: 'power2.out' }, 1.2)
     .to('.cell', { scale: 1.04, duration: 1.2, ease: 'sine.inOut' }, 2.0)
-    .to('.cell', { scale: 1, duration: .55, ease: 'sine.inOut' }, 3.05)
+    .to('.cell', { scale: 1, duration: .35, ease: 'sine.inOut' }, 3.2)
 
     .to('.scene1', { opacity: 0, duration: .45, ease: 'power2.in' }, 3.55)
     .set('.scene2', { opacity: 1 }, 3.85)
